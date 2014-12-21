@@ -22,6 +22,9 @@
     )); ?>
     <br/>
     <?php echo $this->Form->end('Calulate'); ?>
+    <br/>
+    <hr/>
+    @create by <a href="https://github.com/squalltua" >pukkapol.tan</a>
 </div><!-- /.sidebar -->
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

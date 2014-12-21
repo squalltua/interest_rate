@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Calculate interest rates by Effective rate</a>
+                <?php echo $this->Html->link('Calculate interest rates by Effective rate', '/', array('class' => 'navbar-brand')); ?>
             </div><!-- /.navbar-header -->
             
         </div><!-- /.container-fluid -->

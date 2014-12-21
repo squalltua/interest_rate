@@ -48,16 +48,25 @@ class PagesController extends AppController {
         
         // check for send by post
 		if ($this->request->is('post')) {
-            // load data from form
-            $loan_amount    = $this->data['Page']['loan_amount'];
-            $term           = $this->data['Page']['term'];
-            $interest       = $this->data['Page']['interest'];
             
-            // calulate PMT
-            $pmt            = $this->pmt($interest, $term, $loan_amount);
-            
-            // set data to view.
-            $this->set(compact('loan_amount', 'term', 'interest', 'pmt'));
+            if ($this->check_value($this->data['Page']['interest'])
+                && $this->check_value($this->data['Page']['term'])
+                && $this->check_value($this->data['Page']['loan_amount'])) {
+                // load data from form
+                $loan_amount    = $this->data['Page']['loan_amount'];
+                $term           = $this->data['Page']['term'];
+                $interest       = $this->data['Page']['interest'];
+
+                // calulate PMT
+                $pmt            = $this->pmt($interest, $term, $loan_amount);
+
+                // set data to view.
+                $this->set(compact('loan_amount', 'term', 'interest', 'pmt'));
+                
+            } else {
+                // display message error.
+                return $this->Session->setFlash('Data error. Please try again.', 'error_flash');        
+            }
         }
 	}
     
@@ -77,5 +86,22 @@ class PagesController extends AppController {
         $apr = $apr / 1200;
         $amount = $apr * -$loan * pow((1 + $apr), $term) / (1 - pow((1 + $apr), $term));
         return $amount;
+    }
+    
+    /**
+     * check_value method
+     * for IE checker can't support fully HTML5 syntex
+     *
+     * @param   integer or float    $val    value for check
+     * @return  boolean
+     */
+    private function check_value($val = null) {
+        if (!empty($val)) {
+            if (is_float($val) || is_numeric($val)) {
+                return true;   
+            }
+        }
+        
+        return false;
     }
 }

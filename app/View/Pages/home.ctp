@@ -16,7 +16,8 @@
     
     <?php echo $this->Form->input('interest', array(
         'label' => 'Interest Rate',
-        'type' => 'float', 
+        'type' => 'number', 
+        'step' => 'any',
         'placeholder' => '3.5',
         'required' => true
     )); ?>
@@ -69,5 +70,12 @@
             <?php endfor; ?>
             </tbody>
         </table>
+    <?php else: ?>
+        <?php echo $this->Session->flash(); ?>
+        <div class="jumbotron">
+            <h1>Calculate interest rates by Effective rate</h1>
+            <h3>Place enter information in left side</h3>
+            <small>This project used CakePHP framework (v2.5.7) is MVC frameword and used Bootstrap 3 framework is HTML, CSS, and JS framework</small>
+        </div>
     <?php endif; ?>
 </div><!-- /.main -->
